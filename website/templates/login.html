@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+<title>{% block title %}Login{% endblock %} </title>
+{% block content %}
+<div>
+    <form method="POST" class="form-login"> 
+        <div class="login-login">
+            <h1>Login</h1>
+        </div>
+        <div class="inputs">
+            <label>Email</label>
+            <input
+            type="email" name="email" id="email" placeholder="informe seu email"
+            oninvalid="this.setCustomValidity('Insira um email válido.')" onvalid="this.setCustomValidity('')"/>
+        </div>
+        <div class="inputs">
+            <label>Senha</label>
+            <input
+            type="password" name="senha" id="senha" placeholder="informe sua senha"
+            />
+        </div>
+        <h2>Não tem conta? <a href="/signin">Registre-se</a><h2>
+        <div class="form-login-bottom">
+            <button type="submit" class="form-login-btn">Login</button>
+        </div>
+        <div class="form-login-notas">
+            </br>
+            <h2>Notas: para logar como Admin, basta colocar as credenciais:
+            </br> email = 'admin@admin.com' </br> senha = 'admin'</h2>
+        </div>
+
+    </form>
+</div>
+
+
+{% endblock content %}

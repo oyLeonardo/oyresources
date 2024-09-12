@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+{% block content %}
+{% if current_user.is_admin %}
+<!DOCTYPE html>
+
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} Database {% endblock %} </title>
+    <link rel="stylesheet" href="static/base.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Eczar:wght@400..800&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <h1>Users:</h1>
+    <h2>
+        {% for user in users[1:]%}
+        <div class="admin-users">
+        {{ user.nome }}
+        <div class="action-container">
+            <button type="button" class="popup-button-delete"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"/>
+              </svg>  
+            </button>
+            <div class="action-container-confirmbuttons">
+                <button class="popup-button-cancel"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+                  </svg></button>
+                <button class="popup-button-confirm" onClick="deletarUser({{user.id}})"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
+                    <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"/>
+                  </svg></button>
+            </div>
+            <div class="action-edit-container">
+                <button class="popup-button-edit" id="perfil-edit-button"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                    <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
+                  </svg></button>
+            </div>
+        </div>
+        </div>
+        <div class="perfil-info">
+            <form class="perfil-info-form" method="POST">
+                <div class="perfil-info-div">
+                    <h2>Email:</h2>
+                    <div class="perfil-info-div-items">
+                        <div class="perfil-info-display">
+                            <h2>{{user.email}}</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="perfil-info-div">
+                    <h2>Nome</h2>
+                    <div class="perfil-info-div-items-nome">
+                        <input class="perfil-info-display-nome" name="newnome" value="{{user.nome}}">
+                        </input>
+                    </div>
+                </div>
+                <div class="perfil-info-div">
+                    <h2>Senha</h2>
+                    <div class="perfil-info-div-items-senha">
+                        <input class="perfil-info-display-senha1" name="newsenha1" value="{{user.senha}}">
+                        </input>
+                    </div>
+                </div>
+                <div class="perfil-info-div">
+                    <h2>Confirmar senha</h2>
+                    <div class="perfil-info-div-items-senha">
+                        <input class="perfil-info-display-senha2" name="newsenha2" value="{{user.senha}}">
+                        </input>
+                    </div>
+                </div>
+                <div class="perfil-info-bottom">
+                    <button class="button-salvar" type="submit">Salvar</button>
+                    <button class="button-cancelar" type="reset">Cancelar</button>
+                </div>
+            </form>
+        </div>
+        <script src="/static/perfiledit.js"></script>
+        
+        {% endfor %}
+    </h2>
+    <br>
+    <h1>Posts:</h1>
+    <div>
+        <h2>
+            {% for post in posts%}
+            <div class="admin-posts">
+                <div>
+                    Id: {{ post.id }}
+                </div>
+                <div>
+                    Titulo: {{ post.titulo }}
+                </div>
+                <div>
+                    User: {{ post.usuario.nome }}
+                </div>
+                <div class="h-title">
+                    Conteúdo: {{ post.conteudo }}
+                </div>
+                <div>
+                    Data: {{ post.data }}
+                </div>
+                <div class="action-container">
+                    <button type="button" class="popup-button-delete"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                        <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"/>
+                      </svg>  
+                    </button>
+                    <div class="action-container-confirmbuttons">
+                        <button class="popup-button-cancel"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+                          </svg>
+                        </button>
+                          
+                        <button class="popup-button-confirm" onClick="deletarPost({{post.id}})">
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
+                            <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"/>
+                            </svg>
+                        
+                        </button>
+                        
+                    </div>
+                </div>
+                <div class="action-edit-container">
+                    <a href="{{url_for("views.postedit",titulo=post.titulo)}}">
+                    <button class="popup-button-edit"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
+                      </svg></button></a>
+                </div>
+            </div>
+            
+            {% endfor %}
+        </h2>
+    </div>
+
+    <script src="static/db.js"></script>
+</body>
+</html>
+{% else %}
+<h1>vc não é admin</h1> 
+{%endif%}
+{% endblock content %}

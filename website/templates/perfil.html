@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% block title %} Perfil {% endblock %}
+{%block content%}
+<div class="perfil">
+    <div class="perfil-card">
+        <div class="perfil-head">
+            <svg xmlns="http://www.w3.org/2000/svg" width="126" height="126" fill="whitesmoke" class="bi bi-person-bounding-box" viewBox="0 0 16 16">
+                <path d="M1.5 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 1-1 0v-3A1.5 1.5 0 0 1 1.5 0h3a.5.5 0 0 1 0 1zM11 .5a.5.5 0 0 1 .5-.5h3A1.5 1.5 0 0 1 16 1.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 1-.5-.5M.5 11a.5.5 0 0 1 .5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 1 0 1h-3A1.5 1.5 0 0 1 0 14.5v-3a.5.5 0 0 1 .5-.5m15 0a.5.5 0 0 1 .5.5v3a1.5 1.5 0 0 1-1.5 1.5h-3a.5.5 0 0 1 0-1h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 1 .5-.5"/>
+                <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+              </svg>
+    
+            <div class="perfil-nome-area">
+                <h2>{{user.nome}}</h2> 
+            </div>
+            <div>
+                <button class="perfil-edit-button" id="perfil-edit-button">Editar perfil</button>
+            </div>
+        </div>
+    </div>
+</div>
+    <div class="perfil-mypost-title">
+        <h2>Meus posts:</h2>
+    </div>
+    <div class="posts-area">
+        {%for post in userposts%}
+        <a href="{{url_for('views.pagina_post', titulo = post.titulo)}}">
+        <div class="posts-card-container">
+            <div class="posts-card">
+                {% for imagem in imagens %}
+                    {%if imagem.post_id == post.id%}     
+                        <img class="thumbnails" src = "static/uploads/{{imagem.filename}}">
+                    {%endif%}
+                {% endfor %}
+                <div class = "posts-body">
+                    <div class = "posts-title">
+                        <h2 class="h-title">{{ post.titulo }}</h2>
+                    </div>
+                    <div class = "posts-user">
+                        <h3> By </h3> <h3> {{ post.usuario.nome }}</h3>    
+                    </div>
+                    <div>
+                        <h3 class = "posts-preview"> {{post.conteudo}} </h3>
+                    </div>
+                    <div class = "posts-data">
+                        <h3>{{ post.data }}</h3>    
+                    </div>
+                </div>
+            </div>
+        </div>
+        </a>
+        {%endfor%}
+    </div>
+<div class="perfil-info">
+    <form class="perfil-info-form" method="POST">
+        <div class="perfil-info-div">
+            <h2>Email:</h2>
+            <div class="perfil-info-div-items">
+                <div class="perfil-info-display">
+                    <h2>{{user.email}}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="perfil-info-div">
+            <h2>Nome</h2>
+            <div class="perfil-info-div-items-nome">
+                <input class="perfil-info-display-nome" name="newnome" value="{{user.nome}}">
+                </input>
+            </div>
+        </div>
+        <div class="perfil-info-div">
+            <h2>Senha</h2>
+            <div class="perfil-info-div-items-senha">
+                <input class="perfil-info-display-senha1" name="newsenha1" value="{{user.senha}}">
+                </input>
+            </div>
+        </div>
+        <div class="perfil-info-div">
+            <h2>Confirmar senha</h2>
+            <div class="perfil-info-div-items-senha">
+                <input class="perfil-info-display-senha2" name="newsenha2" value="{{user.senha}}">
+                </input>
+            </div>
+        </div>
+        <div class="perfil-info-bottom">
+            <div class="perfil-info-bottom-left">
+                <button class="button-deletar-perfil" type="button" onClick="deletarUser({{user.id}})">
+                    Deletar Conta
+                </button>
+            </div>
+            <div class="perfil-info-bottom-right">
+                <button class="button-salvar" type="submit">Salvar</button>
+                <button class="button-cancelar" type="reset">Cancelar</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script src="/static/perfiledit.js"></script>
+
+{%endblock content%}

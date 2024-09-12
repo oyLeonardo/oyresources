@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+<title>{% block title %}Editar Post{% endblock %} </title>
+{% block content %}
+<form class="posts-block" enctype="multipart/form-data" method="post" action="postar">
+    <div class="posts-block-area">
+        <div class="post-page-header">
+            <div class="post-page-body-input">
+                <label>Preview:</label>
+                <div class="postedit-preview">
+                    <img src="/static/uploads/{{imagem.filename}}" id="output"></img>
+                    <h1>"{{imagem.filename}}"</h1>
+                </div>
+            </div>
+        </div>
+        <div class="post-page-body">
+            <div class="post-page-body-header">
+                <div class="post-page-body-input">
+                    <label>Titulo:</label>
+                    <input type="text" name="newtitulo" value="{{post.titulo}}" placeholder="Titulo"></input>
+                </div>
+                <div class="post-page-body-input">
+                    <label>Download:</label>
+                    <h1>"{{post.arquivos.filename}}"</h1>
+                </div>
+            </div>
+            <label>Descrição:</label>
+            <textarea class="post-block-desc" type="text" name="newconteudo" placeholder="Digite sua descrição" minlength=20 maxlength=500 spellcheck=false>{{post.conteudo}}</textarea>
+
+        </div>
+        <div class="postedit-page-button">
+            <button type="submit" name="postar" formaction="{{url_for("views.postedit",titulo=post.titulo)}}">Salvar</button>
+            <button type="reset" onclick="window.location.href='/'">Cancelar</button>
+        </div>
+    </div>
+</form>
+
+{% endblock content %}

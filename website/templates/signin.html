@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+<title>{% block title %}Signin{% endblock %} </title>
+{% block content %}
+<form method="POST" class="form-signin"> 
+    <div class="signin-title">
+        <h1>Registre-se</h1>
+    </div>
+    <div class="inputs">
+        <label>Nome</label>
+        <input type="text" name="nome" id="nome" placeholder="Insira seu nome (2 a 20 caracteres)"
+        />
+    </div>
+    <div class="inputs">
+        <label>Email</label>
+        <input type="email" name="email1" id="email1" placeholder="Insira seu email (min. 4)" oninvalid="this.setCustomValidity('Insira um email válido.')" onvalid="this.setCustomValidity('')"
+        />
+    </div>
+    <div class="inputs">
+        <label>Confirme seu email</label>
+        <input type="email" name="email2" id="email2" placeholder="Confirme seu email" oninvalid="this.setCustomValidity('Insira um email válido.')" onvalid="this.setCustomValidity('')"
+        />
+    </div>
+    <div class="inputs">
+        <label>Senha</label>
+        <input 
+            type="password" name="senha1" id="senha1" placeholder="Insira sua senha (min. 5)"
+        />
+    </div>
+    <div class="inputs">
+        <label>Confirme sua senha</label>
+        <input 
+            type="password" name="senha2" id="senha2" placeholder="Confirme sua senha"
+        />
+    </div>
+
+    <button type="submit" class="form-signin-btn">Registrar</button>
+</form>
+{% endblock content %}

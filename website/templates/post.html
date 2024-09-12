@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+<title>{% block title %}Postar{% endblock %} </title>
+{% block content %}
+<form class="posts-block" enctype="multipart/form-data" method="post" action="postar">
+    <div class="posts-block-area">
+        <div class="post-page-header">
+            <div class="post-page-body-input">
+                <label>Preview:</label>
+                <input class="input-preview" type="file" name="file"></input>
+            </div>
+        </div>
+        <div class="post-page-body">
+            <div class="post-page-body-header">
+                <div class="post-page-body-input">
+                    <label>Nome:</label>
+                    <input type="text" name="titulo" placeholder="Titulo"></input>
+                </div>
+                <div class="post-page-body-input">
+                    <label>Download:</label>
+                    <input type="file" name="zip" accept=".zip"></input>
+                </div>
+            </div>
+            <label>Descrição:</label>
+            <textarea class="post-block-desc" type="text" name="conteudo" placeholder="Digite sua descrição" minlength=20 maxlength=500 spellcheck=false></textarea>
+
+        </div>
+        <div class="post-page-button">
+            <button type="submit" name="postar">Postar</button>
+        </div>
+    </div>
+</form>
+
+{% endblock content %}
