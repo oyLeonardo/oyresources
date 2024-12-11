@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img src="https://raw.githubusercontent.com/oyLeonardo/oyresources/refs/heads/main/website/static/imgs/logositewhite.svg?token=GHSAT0AAAAAACYKEMU7IJ453474BCAIAXJUZYSNXTA" alt=oyresourceslogo width="500">
+  <img src="website/static/imgs/logositewhite.svg" alt=oyresourceslogo width="500">
  <h4 align="center">Site pessoal para armazenamento de resourcepacks de Minecraft</h4>
 </h1>
 
